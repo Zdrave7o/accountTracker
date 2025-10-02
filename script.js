@@ -4,6 +4,16 @@ const openAccCreationBtn = document.querySelector("#openAccCreationMenuBtn");
 
 const accounts = [];
 
+window.addEventListener("DOMContentLoaded", ()=>{
+    const testUser1 = new Account("Shrek Shrekow", 4000);
+    const testUser2 = new Account("Maniak Malak", 8000);
+
+    accounts.push(testUser1);
+    accounts.push(testUser2);
+
+    displayUsers(accounts);
+})
+
 openAccCreationBtn.addEventListener("click", () => {
     openMenu("create-account-menu");
 });
@@ -17,19 +27,21 @@ createAccountBtn.addEventListener("click", () => {
 
 function displayUsers(accountsArr){
     usersDisplay.innerHTML = '';
-
+    let index = 0;
     accountsArr.forEach(account => {
-        usersDisplay.innerHTML+= `<div class="card user-card">
+        usersDisplay.innerHTML+= `<div class="card user-card" index="${index}">
             <div class="card-body">
                 <h5 class="card-title">${account.name}</h5>
                 <p class="card-text">Money owed: ${account.owedMoney} BGN</p>
-                <a href="#" class="btn btn-primary">Add</a>
-                <a href="#" class="btn btn-primary">Remove</a>
+                <a class="btn btn-primary add-btn" index="${index}">Add</a>
+                <a class="btn btn-primary remove-btn" index="${index}">Remove</a>
             </div>
         </div>`;
+
+        index++;
     });
 
-
+    activateButtonAccEventListeners();
 }
 
 
@@ -40,9 +52,7 @@ function createAccount(userName, owedMoney){
     } else if(userName.trim().length < 1){
         window.alert("You should enter 2 names, First and Last")
         return;
-    }
-
-    if(owedMoney < 0){
+    } else if(owedMoney < 0){
         window.alert("You should enter a positive value");
         return;
     }
@@ -53,6 +63,24 @@ function createAccount(userName, owedMoney){
     displayUsers(accounts);
 }
 
+function activateButtonAccEventListeners(){
+    const addButtons = document.querySelectorAll(".add-btn");
+    const removeButtons = document.querySelectorAll(".remove-btn");
+
+    addButtons.forEach(addButton => {
+        addButton.addEventListener("click", () => {
+            const id = addButton.getAttribute("index");
+            updateOwedMoney("add", id);
+        })
+    });
+
+    removeButtons.forEach(removeButton => {
+        removeButton.addEventListener("click", () => {
+            const id = removeButton.getAttribute("index");
+            updateOwedMoney("subtract", id);
+        })
+    });
+}
 createAccountBtn.addEventListener("click", () => {
     displayUsers(accounts);
 })
@@ -78,5 +106,17 @@ class Account{
         this.owedMoney = owedMoney;
         this.transactions = [];
     }
+}
+
+function updateOwedMoney(action, i){
+    const currentAcc = accounts[i];
+
+    if(action.trim() === "add"){
+        currentAcc.owedMoney+=999;
+    } else if(action.trim() === "subtract"){
+        currentAcc.owedMoney-=999;
+    }
+
+    displayUsers(accounts);
 }
 
