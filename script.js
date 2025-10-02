@@ -3,7 +3,7 @@ const usersDisplay = document.querySelector(".usersDisplay");
 function displayUsers(){
     usersDisplay.innerHTML = '';
 
-    for(let i = 0; i<=20; i++){
+    for(let i = 1; i<=7; i++){
         usersDisplay.innerHTML+= `<div class="card user-card">
             <div class="card-body">
                 <h5 class="card-title">User Name</h5>
