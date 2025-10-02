@@ -1,0 +1,11 @@
+body{
+
+}
+
+.users{
+    min-height: 100vh;
+}
+
+.user-card{
+    height: 10vh;
+}
