@@ -2,11 +2,13 @@ const usersDisplay = document.querySelector(".usersDisplay");
 const createAccountBtn = document.querySelector("#createAccountBtn");
 const openAccCreationBtn = document.querySelector("#openAccCreationMenuBtn");
 
+const menuBackground = document.getElementById("menu-background");
+
 const accounts = [];
 
 window.addEventListener("DOMContentLoaded", ()=>{
-    const testUser1 = new Account("Shrek Shrekow", 4000);
-    const testUser2 = new Account("Maniak Malak", 8000);
+    const testUser1 = new Account("Shrek Shrekow", 4000.00);
+    const testUser2 = new Account("Maniak Malak", 8000.00);
 
     accounts.push(testUser1);
     accounts.push(testUser2);
@@ -86,6 +88,9 @@ createAccountBtn.addEventListener("click", () => {
 })
 
 function openMenu(menuClassName){
+    menuBackground.classList.remove("d-none");
+    menuBackground.classList.add("d-flex");
+
     const targetMenu = document.querySelector(`.${menuClassName}`);
     console.log(targetMenu);
     
@@ -98,6 +103,18 @@ function openMenu(menuClassName){
 
     targetMenu.classList.remove("d-none");
     targetMenu.classList.add("d-block");
+}
+
+function closeMenu(){
+    const allMenus = document.querySelectorAll('.menu');
+
+    allMenus.forEach(menu =>{
+        menu.classList.remove("d-block");
+        menu.classList.add("d-none");
+    })
+
+    menuBackground.classList.remove("d-flex");
+    menuBackground.classList.add("d-none");
 }
 
 class Account{
