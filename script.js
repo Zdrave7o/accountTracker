@@ -28,7 +28,10 @@ createAccountBtn.addEventListener("click", () => {
     let names = document.getElementById("names").value;
     let balance = Number(document.getElementById("owedMoney").value);
 
+    document.getElementById("names").value = "";
+    document.getElementById("owedMoney").value = "";
     createAccount(names, balance);
+    closeMenu();
 });
 
 function displayUsers(accountsArr){
@@ -38,7 +41,7 @@ function displayUsers(accountsArr){
         usersDisplay.innerHTML+= `<div class="card user-card" index="${index}">
             <div class="card-body">
                 <h5 class="card-title">${account.name}</h5>
-                <p class="card-text">Money owed: ${account.owedMoney} BGN</p>
+                <p class="card-text">Money owed: ${account.owedMoney.toFixed(2)} BGN</p>
                 <a class="btn btn-primary add-btn" index="${index}">+</a>
                 <a class="btn btn-primary remove-btn" index="${index}">-</a>
                 <a class="btn btn-primary transactions-button" index="${index}">View Transactions</a>
@@ -103,8 +106,12 @@ function activateButtonAccEventListeners(){
     transactionsButtons.forEach(transactionButton =>{
        transactionButton.addEventListener("click", () => {
             const currentAccIndex = transactionButton.getAttribute("index");
+            const transactionsDisplay = document.getElementById("transactionsDisplay");
+            const userNameDisplay = document.getElementById("transactionsMenuUserName");
 
-            viewTransactions(currentAccIndex);
+
+            openMenu("account-transactions-menu");
+            viewTransactions(userNameDisplay, transactionsDisplay, currentAccIndex);
        }) 
     });
 }
@@ -155,7 +162,7 @@ function updateOwedMoney(action, i){
     const currentAcc = accounts[i];
     console.log(value);
     
-    if(value < 0){
+if(value <= 0){
         window.alert("The number should be positive!");
         return;
     } else if(isNaN(value)){
@@ -176,13 +183,16 @@ function updateOwedMoney(action, i){
     closeMenu();
 }
 
-function viewTransactions(i){
+function viewTransactions(userNameDisplay, transactionsDisplay, i){
     const currentAcc = accounts[i];
-
     const currentArr = currentAcc.transactions;
-
-    console.log(currentArr.join(", "));
     
+    userNameDisplay.innerHTML = currentAcc.name;
+    transactionsDisplay.innerHTML = "";
+    currentArr.forEach(transaction => {
+        transactionsDisplay.innerHTML+= `<h4>${transaction}</h4>`
+    });
+
 }
 
 
