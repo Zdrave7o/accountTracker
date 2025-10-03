@@ -4,6 +4,8 @@ const openAccCreationBtn = document.querySelector("#openAccCreationMenuBtn");
 
 const menuBackground = document.getElementById("menu-background");
 
+const updateValueBtn = document.getElementById("updateValue");
+
 const accounts = [];
 
 window.addEventListener("DOMContentLoaded", ()=>{
@@ -35,8 +37,9 @@ function displayUsers(accountsArr){
             <div class="card-body">
                 <h5 class="card-title">${account.name}</h5>
                 <p class="card-text">Money owed: ${account.owedMoney} BGN</p>
-                <a class="btn btn-primary add-btn" index="${index}">Add</a>
-                <a class="btn btn-primary remove-btn" index="${index}">Remove</a>
+                <a class="btn btn-primary add-btn" index="${index}">+</a>
+                <a class="btn btn-primary remove-btn" index="${index}">-</a>
+                <a class="btn btn-primary" index="${index}">View Transactions</a>
             </div>
         </div>`;
 
@@ -71,15 +74,26 @@ function activateButtonAccEventListeners(){
 
     addButtons.forEach(addButton => {
         addButton.addEventListener("click", () => {
-            const id = addButton.getAttribute("index");
-            updateOwedMoney("add", id);
+            openMenu("update-value-menu");
+
+            const currentAccIndex = addButton.getAttribute("index");
+
+            updateValueBtn.onclick = () => {
+                updateOwedMoney("add", currentAccIndex);
+            }
         })
     });
 
     removeButtons.forEach(removeButton => {
         removeButton.addEventListener("click", () => {
-            const id = removeButton.getAttribute("index");
-            updateOwedMoney("subtract", id);
+            openMenu("update-value-menu");
+
+            const currentAccIndex = removeButton.getAttribute("index");
+
+            updateValueBtn.onclick = () => {
+                updateOwedMoney("subtract", currentAccIndex);
+            }
+            
         })
     });
 }
@@ -126,14 +140,22 @@ class Account{
 }
 
 function updateOwedMoney(action, i){
+    const value = Number(document.getElementById("value").value);
     const currentAcc = accounts[i];
-
-    if(action.trim() === "add"){
-        currentAcc.owedMoney+=999;
-    } else if(action.trim() === "subtract"){
-        currentAcc.owedMoney-=999;
+    console.log(value);
+    
+    if(value < 0){
+        window.alert("The number should be positive!");
+        return;
+    } else if(isNaN(value)){
+        window.alert("The input should be a number!");
+        return;
     }
 
+    action.trim() === "add"? currentAcc.owedMoney+=value:currentAcc.owedMoney-=value;
+
+    document.getElementById("value").value = 0;
     displayUsers(accounts);
+    closeMenu();
 }
 
