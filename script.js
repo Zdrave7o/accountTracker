@@ -9,11 +9,13 @@ const updateValueBtn = document.getElementById("updateValue");
 const accounts = [];
 
 window.addEventListener("DOMContentLoaded", ()=>{
-    const testUser1 = new Account("Shrek Shrekow", 4000.00);
-    const testUser2 = new Account("Maniak Malak", 8000.00);
+    const testUser1 = new Account("Георги Георгиев", 4000.00);
+    const testUser2 = new Account("Фики Стораро", 8000.00);
+    const testUser3 = new Account("Тони Стораро", 8000.00);
 
     accounts.push(testUser1);
     accounts.push(testUser2);
+    accounts.push(testUser3);
 
     displayUsers(accounts);
 })
@@ -39,7 +41,7 @@ function displayUsers(accountsArr){
                 <p class="card-text">Money owed: ${account.owedMoney} BGN</p>
                 <a class="btn btn-primary add-btn" index="${index}">+</a>
                 <a class="btn btn-primary remove-btn" index="${index}">-</a>
-                <a class="btn btn-primary" index="${index}">View Transactions</a>
+                <a class="btn btn-primary transactions-button" index="${index}">View Transactions</a>
             </div>
         </div>`;
 
@@ -71,6 +73,7 @@ function createAccount(userName, owedMoney){
 function activateButtonAccEventListeners(){
     const addButtons = document.querySelectorAll(".add-btn");
     const removeButtons = document.querySelectorAll(".remove-btn");
+    const transactionsButtons = document.querySelectorAll(".transactions-button")
 
     addButtons.forEach(addButton => {
         addButton.addEventListener("click", () => {
@@ -95,6 +98,14 @@ function activateButtonAccEventListeners(){
             }
             
         })
+    });
+
+    transactionsButtons.forEach(transactionButton =>{
+       transactionButton.addEventListener("click", () => {
+            const currentAccIndex = transactionButton.getAttribute("index");
+
+            viewTransactions(currentAccIndex);
+       }) 
     });
 }
 createAccountBtn.addEventListener("click", () => {
@@ -154,8 +165,25 @@ function updateOwedMoney(action, i){
 
     action.trim() === "add"? currentAcc.owedMoney+=value:currentAcc.owedMoney-=value;
 
+    if(action === "add"){
+        currentAcc.transactions.push(+value);
+    } else{
+        currentAcc.transactions.push(-value);
+    }
+
     document.getElementById("value").value = 0;
     displayUsers(accounts);
     closeMenu();
 }
+
+function viewTransactions(i){
+    const currentAcc = accounts[i];
+
+    const currentArr = currentAcc.transactions;
+
+    console.log(currentArr.join(", "));
+    
+}
+
+
 
