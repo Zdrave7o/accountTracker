@@ -45,6 +45,7 @@ function displayUsers(accountsArr){
                 <a class="btn btn-primary add-btn" index="${index}">+</a>
                 <a class="btn btn-primary remove-btn" index="${index}">-</a>
                 <a class="btn btn-primary transactions-button" index="${index}">View Transactions</a>
+                <a class="btn btn-primary delete-account-button" index="${index}">Delete Acc</a>
             </div>
         </div>`;
 
@@ -73,10 +74,16 @@ function createAccount(userName, owedMoney){
     displayUsers(accounts);
 }
 
+function deleteAccount(i){
+    accounts.splice(i, 1);
+    displayUsers(accounts);
+}
+
 function activateButtonAccEventListeners(){
     const addButtons = document.querySelectorAll(".add-btn");
     const removeButtons = document.querySelectorAll(".remove-btn");
     const transactionsButtons = document.querySelectorAll(".transactions-button")
+    const deleteAccButtons = document.querySelectorAll(".delete-account-button");
 
     addButtons.forEach(addButton => {
         addButton.addEventListener("click", () => {
@@ -113,6 +120,14 @@ function activateButtonAccEventListeners(){
             openMenu("account-transactions-menu");
             viewTransactions(userNameDisplay, transactionsDisplay, currentAccIndex);
        }) 
+    });
+
+    deleteAccButtons.forEach(accButton => {
+        accButton.addEventListener("click", () => {
+            const currentAccIndex = accButton.getAttribute("index");
+            deleteAccount(currentAccIndex);
+            
+        });
     });
 }
 createAccountBtn.addEventListener("click", () => {
@@ -192,6 +207,10 @@ function viewTransactions(userNameDisplay, transactionsDisplay, i){
     currentArr.forEach(transaction => {
         transactionsDisplay.innerHTML+= `<h4>${transaction}</h4>`
     });
+
+}
+
+function removeTransaction(){
 
 }
 
