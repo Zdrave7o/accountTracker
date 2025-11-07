@@ -177,7 +177,7 @@ function updateOwedMoney(action, i){
     const currentAcc = accounts[i];
     console.log(value);
     
-if(value <= 0){
+    if(value <= 0){
         window.alert("The number should be positive!");
         return;
     } else if(isNaN(value)){
@@ -206,7 +206,7 @@ function viewTransactions(userNameDisplay, transactionsDisplay, i){
     transactionsDisplay.innerHTML = "";
     currentArr.forEach(transaction => {
         transactionsDisplay.innerHTML+= `<h4>${transaction}</h4>
-        <button id=removeTransaction account-index="${i}" transaction-index="${transactionIndex}">Remove index:${transactionIndex}</button>`;
+        <button class="btn btn-danger" id=removeTransaction account-index="${i}" transaction-index="${transactionIndex}">Remove transaction</button>`;
         transactionIndex++;
     });
 
@@ -226,7 +226,16 @@ function viewTransactions(userNameDisplay, transactionsDisplay, i){
 }
 
 function removeTransaction(currentAccIndex, transactionIndex){
-    console.log(`removing transaction for ${accounts[currentAccIndex].name}, index ${transactionIndex}`);
+    const balance = accounts[currentAccIndex].transactions[transactionIndex];
+    accounts[currentAccIndex].owedMoney += -balance;
+    accounts[currentAccIndex].transactions.splice(transactionIndex, 1);
+
+    const transactionsDisplay = document.getElementById("transactionsDisplay");
+    const userNameDisplay = document.getElementById("transactionsMenuUserName");
+
+    console.log(accounts[currentAccIndex].owedMoney);
+    viewTransactions(userNameDisplay, transactionsDisplay, currentAccIndex);
+    displayUsers(accounts);
     
 }
 
