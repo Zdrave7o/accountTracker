@@ -201,17 +201,33 @@ if(value <= 0){
 function viewTransactions(userNameDisplay, transactionsDisplay, i){
     const currentAcc = accounts[i];
     const currentArr = currentAcc.transactions;
-    
+    let transactionIndex = 0;
     userNameDisplay.innerHTML = currentAcc.name;
     transactionsDisplay.innerHTML = "";
     currentArr.forEach(transaction => {
-        transactionsDisplay.innerHTML+= `<h4>${transaction}</h4>`
+        transactionsDisplay.innerHTML+= `<h4>${transaction}</h4>
+        <button id=removeTransaction account-index="${i}" transaction-index="${transactionIndex}">Remove index:${transactionIndex}</button>`;
+        transactionIndex++;
     });
+
+    const removeTransactionButtons = document.querySelectorAll("#removeTransaction");
+
+    removeTransactionButtons.forEach(removeTransactionButton =>{
+        removeTransactionButton.addEventListener("click", () => {
+
+        const currentTransactionIndex =  Number(removeTransactionButton.getAttribute("transaction-index"));
+        const currentAccIndex = Number(removeTransactionButton.getAttribute("account-index"));
+
+        removeTransaction(currentAccIndex, currentTransactionIndex);
+        
+    })
+    })
 
 }
 
-function removeTransaction(){
-
+function removeTransaction(currentAccIndex, transactionIndex){
+    console.log(`removing transaction for ${accounts[currentAccIndex].name}, index ${transactionIndex}`);
+    
 }
 
 
