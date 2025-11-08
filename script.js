@@ -139,7 +139,6 @@ function openMenu(menuClassName){
     menuBackground.classList.add("d-flex");
 
     const targetMenu = document.querySelector(`.${menuClassName}`);
-    console.log(targetMenu);
     
 
     const allMenus = document.querySelectorAll('.menu');
@@ -175,7 +174,6 @@ class Account{
 function updateOwedMoney(action, i){
     const value = Number(document.getElementById("value").value);
     const currentAcc = accounts[i];
-    console.log(value);
     
     if(value <= 0){
         window.alert("The number should be positive!");
@@ -205,8 +203,12 @@ function viewTransactions(userNameDisplay, transactionsDisplay, i){
     userNameDisplay.innerHTML = currentAcc.name;
     transactionsDisplay.innerHTML = "";
     currentArr.forEach(transaction => {
-        transactionsDisplay.innerHTML+= `<h4>${transaction}</h4>
-        <button class="btn btn-danger" id=removeTransaction account-index="${i}" transaction-index="${transactionIndex}">Remove transaction</button>`;
+        transactionsDisplay.innerHTML+= `<div class="card col-lg-6 col-sm-8 mx-auto mt-1">
+            <div class="card-body">
+                <h4 class="class-title">Transaction ammount: $${transaction.toFixed(2)}</div>
+                <button class="btn btn-danger col-10 mx-auto mb-1" id=removeTransaction account-index="${i}" transaction-index="${transactionIndex}">Remove transaction</button>
+            </div>
+        </div>`;
         transactionIndex++;
     });
 
@@ -233,7 +235,6 @@ function removeTransaction(currentAccIndex, transactionIndex){
     const transactionsDisplay = document.getElementById("transactionsDisplay");
     const userNameDisplay = document.getElementById("transactionsMenuUserName");
 
-    console.log(accounts[currentAccIndex].owedMoney);
     viewTransactions(userNameDisplay, transactionsDisplay, currentAccIndex);
     displayUsers(accounts);
     
