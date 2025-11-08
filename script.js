@@ -1,12 +1,15 @@
 const usersDisplay = document.querySelector(".usersDisplay");
-const createAccountBtn = document.querySelector("#createAccountBtn");
-const openAccCreationBtn = document.querySelector("#openAccCreationMenuBtn");
+const createAccountBtn = document.querySelector("#create-account-btn");
+const openAccCreationBtn = document.querySelector("#open-acc-creatio-menu-btn");
+const searchInput=document.getElementById("search-input");
 
 const menuBackground = document.getElementById("menu-background");
 
 const updateValueBtn = document.getElementById("updateValue");
 
 const accounts = [];
+
+let creationIndex = 0;
 
 window.addEventListener("DOMContentLoaded", ()=>{
     const testUser1 = new Account("Георги Георгиев", 4000.00);
@@ -38,7 +41,8 @@ function displayUsers(accountsArr){
     usersDisplay.innerHTML = '';
     let index = 0;
     accountsArr.forEach(account => {
-        usersDisplay.innerHTML+= `<div class="card user-card" index="${index}">
+        usersDisplay.innerHTML+= `<div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card user-card" index="${index}">
             <div class="card-body">
                 <h5 class="card-title">${account.name}</h5>
                 <p class="card-text">Money owed: ${account.owedMoney.toFixed(2)} BGN</p>
@@ -47,7 +51,8 @@ function displayUsers(accountsArr){
                 <a class="btn btn-primary transactions-button" index="${index}">View Transactions</a>
                 <a class="btn btn-primary delete-account-button" index="${index}">Delete Acc</a>
             </div>
-        </div>`;
+            </div>
+            </div>`;
 
         index++;
     });
@@ -129,7 +134,10 @@ function activateButtonAccEventListeners(){
             
         });
     });
+
+    searchInput.addEventListener("input", searchAcc);
 }
+
 createAccountBtn.addEventListener("click", () => {
     displayUsers(accounts);
 })
@@ -238,6 +246,40 @@ function removeTransaction(currentAccIndex, transactionIndex){
     viewTransactions(userNameDisplay, transactionsDisplay, currentAccIndex);
     displayUsers(accounts);
     
+}
+
+const searchAcc = () => {
+    const query = searchInput.value;
+
+    const found = accounts.filter(account => account.name.toLowerCase().includes(query.toLowerCase()));
+    const searchResults = [...found];
+    
+    if(searchResults.length > 0){
+        usersDisplay.innerHTML = "";
+        searchResults.forEach(result => {
+            const currentAccIndex = accounts.indexOf(result);
+            console.log(currentAccIndex);
+            
+            usersDisplay.innerHTML+= `<div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card user-card" index="${currentAccIndex}">
+            <div class="card-body">
+                <h5 class="card-title">${result.name}</h5>
+                <p class="card-text">Money owed: ${result.owedMoney.toFixed(2)} BGN</p>
+                <a class="btn btn-primary add-btn" index="${currentAccIndex}">+</a>
+                <a class="btn btn-primary remove-btn" index="${currentAccIndex}">-</a>
+                <a class="btn btn-primary transactions-button" index="${currentAccIndex}">View Transactions</a>
+                <a class="btn btn-primary delete-account-button" index="${currentAccIndex}">Delete Acc</a>
+            </div>
+            </div>
+            </div>`;
+            
+            activateButtonAccEventListeners();
+        })
+    } else{
+
+        displayUsers(accounts);
+
+    }
 }
 
 
