@@ -50,6 +50,7 @@ function displayUsers(accountsArr){
                 <a class="btn btn-primary remove-btn" index="${index}">-</a>
                 <a class="btn btn-primary transactions-button" index="${index}">View Transactions</a>
                 <a class="btn btn-primary delete-account-button" index="${index}">Delete Acc</a>
+                <a class="btn btn-primary edit-account-button" index="${index}">Edit</a>
             </div>
             </div>
             </div>`;
@@ -87,8 +88,9 @@ function deleteAccount(i){
 function activateButtonAccEventListeners(){
     const addButtons = document.querySelectorAll(".add-btn");
     const removeButtons = document.querySelectorAll(".remove-btn");
-    const transactionsButtons = document.querySelectorAll(".transactions-button")
+    const transactionsButtons = document.querySelectorAll(".transactions-button");
     const deleteAccButtons = document.querySelectorAll(".delete-account-button");
+    const editAccButtons = document.querySelectorAll(".edit-account-button");
 
     addButtons.forEach(addButton => {
         addButton.addEventListener("click", () => {
@@ -136,6 +138,14 @@ function activateButtonAccEventListeners(){
     });
 
     searchInput.addEventListener("input", searchAcc);
+
+    editAccButtons.forEach(editButton => {
+        editButton.addEventListener("click", () => {
+            const currentAccIndex = editButton.getAttribute("index");
+            
+            edit(currentAccIndex)
+        })
+    });
 }
 
 createAccountBtn.addEventListener("click", () => {
@@ -280,6 +290,31 @@ const searchAcc = () => {
         displayUsers(accounts);
 
     }
+}
+
+function edit(i){
+    openMenu("edit-menu");
+
+    const submitChangeBtn = document.getElementById("save-changes-button");
+    const currentNameDisplay = document.getElementById("current-name");
+
+    currentNameDisplay.innerText = accounts[i].name
+
+    submitChangeBtn.onclick = () => {
+        console.log(accounts[i].name);
+        const newName = document.getElementById("new-name").value.trim();
+        if(newName.length === 0 || !newName.includes(" ")) {
+            window.alert("Enter first and last name");
+            return;
+        }
+        accounts[i].name = newName;
+        document.getElementById("new-name").value = "";
+        displayUsers(accounts);
+        closeMenu();
+
+        submitChangeBtn.onclick = null;
+    }
+
 }
 
 
