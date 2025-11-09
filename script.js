@@ -12,14 +12,16 @@ const accounts = [];
 let creationIndex = 0;
 
 window.addEventListener("DOMContentLoaded", ()=>{
-    const testUser1 = new Account("Георги Георгиев", 4000.00);
-    const testUser2 = new Account("Фики Стораро", 8000.00);
-    const testUser3 = new Account("Тони Стораро", 8000.00);
+    // try to load saved accounts, otherwise seed with test users
+    const loaded = loadAccounts();
+    if(!loaded){
+        const testUser1 = new Account("Георги Георгиев", 4000.00);
+        const testUser2 = new Account("Фики Стораро", 8000.00);
+        const testUser3 = new Account("Тони Стораро", 8000.00);
 
-    accounts.push(testUser1);
-    accounts.push(testUser2);
-    accounts.push(testUser3);
-
+        accounts.push(testUser1, testUser2, testUser3);
+        saveAccounts();
+    }
     displayUsers(accounts);
 })
 
@@ -77,11 +79,13 @@ function createAccount(userName, owedMoney){
     const newAccount = new Account(userName, owedMoney);
     accounts.push(newAccount);
 
+    saveAccounts();
     displayUsers(accounts);
 }
 
 function deleteAccount(i){
     accounts.splice(i, 1);
+    saveAccounts();
     displayUsers(accounts);
 }
 
@@ -182,10 +186,11 @@ function closeMenu(){
 }
 
 class Account{
-    constructor(name, owedMoney){
+    // allow passing transactions when restoring from storage
+    constructor(name, owedMoney, transactions = []){
         this.name = name;
         this.owedMoney = owedMoney;
-        this.transactions = [];
+        this.transactions = Array.isArray(transactions) ? transactions : [];
     }
 }
 
@@ -210,6 +215,7 @@ function updateOwedMoney(action, i){
     }
 
     document.getElementById("value").value = 0;
+    saveAccounts();
     displayUsers(accounts);
     closeMenu();
 }
@@ -253,6 +259,7 @@ function removeTransaction(currentAccIndex, transactionIndex){
     const transactionsDisplay = document.getElementById("transactionsDisplay");
     const userNameDisplay = document.getElementById("transactionsMenuUserName");
 
+    saveAccounts();
     viewTransactions(userNameDisplay, transactionsDisplay, currentAccIndex);
     displayUsers(accounts);
     
@@ -309,12 +316,38 @@ function edit(i){
         }
         accounts[i].name = newName;
         document.getElementById("new-name").value = "";
+        saveAccounts();
         displayUsers(accounts);
         closeMenu();
 
         submitChangeBtn.onclick = null;
     }
 
+}
+
+function saveAccounts(){
+    const data = accounts.map(acc => ({
+        name: acc.name,
+        owedMoney: acc.owedMoney,
+        transactions: acc.transactions
+    }));
+    localStorage.setItem('accounts', JSON.stringify(data));
+}
+
+function loadAccounts(){
+    const raw = localStorage.getItem('accounts');
+    if(!raw) return false;
+    try {
+        const arr = JSON.parse(raw);
+        accounts.length = 0;
+        arr.forEach(a => {
+            accounts.push(new Account(a.name, a.owedMoney, a.transactions));
+        });
+        return true;
+    } catch(e){
+        console.error("Failed to load accounts from localStorage", e);
+        return false;
+    }
 }
 
 
