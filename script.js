@@ -48,11 +48,11 @@ function displayUsers(accountsArr){
             <div class="card-body">
                 <h5 class="card-title">${account.name}</h5>
                 <p class="card-text">Money owed: ${account.owedMoney.toFixed(2)} BGN</p>
-                <a class="btn btn-primary add-btn" index="${index}">+</a>
-                <a class="btn btn-primary remove-btn" index="${index}">-</a>
-                <a class="btn btn-primary transactions-button" index="${index}">View Transactions</a>
-                <a class="btn btn-primary delete-account-button" index="${index}">Delete Acc</a>
-                <a class="btn btn-primary edit-account-button" index="${index}">Edit</a>
+                <a class="btn btn-primary add-btn mb-1" index="${index}">+</a>
+                <a class="btn btn-primary remove-btn mb-1" index="${index}">-</a>
+                <a class="btn btn-primary transactions-button mb-1" index="${index}">View Transactions</a>
+                <a class="btn btn-primary delete-account-button mb-1" index="${index}">Delete Acc</a>
+                <a class="btn btn-primary edit-account-button mb-1" index="${index}">Edit</a>
             </div>
             </div>
             </div>`;
@@ -282,10 +282,11 @@ const searchAcc = () => {
             <div class="card-body">
                 <h5 class="card-title">${result.name}</h5>
                 <p class="card-text">Money owed: ${result.owedMoney.toFixed(2)} BGN</p>
-                <a class="btn btn-primary add-btn" index="${currentAccIndex}">+</a>
-                <a class="btn btn-primary remove-btn" index="${currentAccIndex}">-</a>
-                <a class="btn btn-primary transactions-button" index="${currentAccIndex}">View Transactions</a>
-                <a class="btn btn-primary delete-account-button" index="${currentAccIndex}">Delete Acc</a>
+                <a class="btn btn-primary add-btn mb-1" index="${currentAccIndex}">+</a>
+                <a class="btn btn-primary remove-btn mb-1" index="${currentAccIndex}">-</a>
+                <a class="btn btn-primary transactions-button mb-1" index="${currentAccIndex}">View Transactions</a>
+                <a class="btn btn-primary delete-account-button mb-1" index="${currentAccIndex}">Delete Acc</a>
+                <a class="btn btn-primary edit-account-button mb-1" index="${currentAccIndex}">Edit</a>
             </div>
             </div>
             </div>`;
