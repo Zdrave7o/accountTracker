@@ -7,11 +7,28 @@ body{
     min-height: 100vh;
 }
 
-.user-card{
-    height: 600px;
-}
 
 .menu-background{
     min-height:100vh;
     background-color: hsla(0, 0%, 0%, 0.347);
+}
+
+.transactions-bg{
+    height:100px;
+    width: 100%;
+    background-color: aqua;
+}
+
+.profile-picture-background{
+    border-radius: 50%;
+    width:100px;
+    height:100px;
+    background-color: hsl(0, 0%, 96%);
+    padding:2px;
+    bottom:-50px;
+}
+
+.profile-picture{
+    width:100%;
+    border-radius: 50%;
 }

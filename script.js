@@ -14,14 +14,6 @@ let creationIndex = 0;
 window.addEventListener("DOMContentLoaded", ()=>{
     // try to load saved accounts, otherwise seed with test users
     const loaded = loadAccounts();
-    if(!loaded){
-        const testUser1 = new Account("Георги Георгиев", 4000.00);
-        const testUser2 = new Account("Фики Стораро", 8000.00);
-        const testUser3 = new Account("Тони Стораро", 8000.00);
-
-        accounts.push(testUser1, testUser2, testUser3);
-        saveAccounts();
-    }
     displayUsers(accounts);
 })
 
