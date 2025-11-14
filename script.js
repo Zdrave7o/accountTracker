@@ -219,10 +219,10 @@ function viewTransactions(userNameDisplay, transactionsDisplay, i){
     userNameDisplay.innerHTML = currentAcc.name;
     transactionsDisplay.innerHTML = "";
     currentArr.forEach(transaction => {
-        transactionsDisplay.innerHTML+= `<div class="card col-lg-6 col-sm-8 mx-auto mt-1">
+        transactionsDisplay.innerHTML+= `<div class="card col-lg-6 col-sm-8 mx-auto mt-3">
             <div class="card-body">
-                <h4 class="class-title">Transaction ammount: $${transaction.toFixed(2)}</div>
-                <button class="btn btn-danger col-10 mx-auto mb-1" id=removeTransaction account-index="${i}" transaction-index="${transactionIndex}">Remove transaction</button>
+                <h4 class="class-title fw-normal fs-5 text">Transaction amount: $${transaction.toFixed(2)}</div>
+                <button class="btn btn-danger col-8 mx-auto mb-1" id=removeTransaction account-index="${i}" transaction-index="${transactionIndex}">Remove transaction</button>
             </div>
         </div>`;
         transactionIndex++;

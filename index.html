@@ -43,14 +43,21 @@
 
 
 
-    <div class="container-fluid position-absolute top-0 p-1 d-none align-items-center justify-content-center z-2"
+    <div class="container-fluid position-absolute top-0 p-1 rounded d-none align-items-center justify-content-center z-2"
         id="menu-background" style="height:100vh; background-color: hsla(0, 0%, 0%, 0.347);">
-        <div class="container bg-light create-account-menu menu d-none position-relative" style="min-height: 40vh;">
-            <label for="names">Names:</label>
-            <input id="names" type="text">
-            <label for="owedMoney">Money owed: </label>
-            <input id="owedMoney" type="number">
-            <button class="btn btn-danger" id="create-account-btn">Create Account</button>
+        <div class="container col-lg-5 col-md-6 bg-light create-account-menu menu d-none position-relative" style="min-height: 60vh;">
+            <div class="row py-3 mt-2">
+                <h3 class="text-center">Create New Account</h3>
+            </div>
+            <div class="col-10 mx-auto d-flex flex-column justify-content-center">
+                <label for="names" class="fs-4 text fw-medium px-2">Names:</label>
+                <input id="names" class="acc-creation-input" type="text">
+            </div>
+            <div class="col-10 mx-auto d-flex flex-column justify-content-center">
+                <label for="owedMoney" class="fs-4 text fw-medium px-2 mt-3">Money owed: </label>
+                <input id="owedMoney" class="acc-creation-input" type="number">
+                <button class="btn btn-danger mt-4" id="create-account-btn">Create Account</button>
+            </div>
 
             <button class="btn btn-danger p-1 position-absolute top-0 start-100 translate-middle" style="width:40px;"
                 onclick="closeMenu();">X</button>
@@ -66,20 +73,18 @@
 
         <div class="container bg-light p-0 account-transactions-menu menu d-none position-relative"
             style="min-height: 50vh;">
-            <div
-                class="container-fluid transactions-bg d-flex justify-content-center align-items-center position-relative">
+            <div class="container-fluid transactions-bg d-flex justify-content-center align-items-center position-relative">
 
             </div>
 
             <div class="container-fluid d-flex justify-content-center align-items-center flex-column position-relative">
-                <span
-                    class="profile-picture-background d-flex justify-content-center align-items-center flex-column position-absolute">
+                <span class="profile-picture-background d-flex justify-content-center align-items-center flex-column position-absolute">
                     <img class="profile-picture"
                         src="https://blog.photofeeler.com/wp-content/uploads/2017/09/instagram-profile-picture-maker.jpg">
                 </span>
                 <h2 id="transactionsMenuUserName" class="mt-2 py-4">User Name</h2>
-                <h3 class="text-center">Account Transactions: </h3>
-                <div class="col-10 overflow-y-scroll mx-auto text-center" id="transactionsDisplay">
+                <h3 class="text-center fw-normal fs-4 text">Account Transactions: </h3>
+                <div class="container overflow-y-scroll mx-auto p-2 text-center" id="transactionsDisplay" >
 
                 </div>
             </div>
