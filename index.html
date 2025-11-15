@@ -49,13 +49,13 @@
             <div class="row py-3 mt-2">
                 <h3 class="text-center">Create New Account</h3>
             </div>
-            <div class="col-10 mx-auto d-flex flex-column justify-content-center">
-                <label for="names" class="fs-4 text fw-medium px-2">Names:</label>
-                <input id="names" class="acc-creation-input" type="text">
+            <div class="col-lg-4 col-md-6 col-sm-8 mx-auto d-flex flex-column justify-content-center">
+                <label for="names" class="fs-5 text fw-normal px-2">Names:</label>
+                <input id="names" class="custom-input" type="text">
             </div>
-            <div class="col-10 mx-auto d-flex flex-column justify-content-center position-relative">
-                <label for="owedMoney" class="fs-4 text fw-medium px-2 mt-3">Money owed: </label>
-                <input id="owedMoney" class="acc-creation-input" type="number">
+            <div class="col-lg-4 col-md-6 col-sm-8 mx-auto d-flex flex-column justify-content-center position-relative">
+                <label for="owedMoney" class="fs-5 text fw-normal px-2 mt-3">Money owed: </label>
+                <input id="owedMoney" class="custom-input" type="number">
             </div>
 
             <button class="btn btn-danger mt-4 col-lg-4 col-sm-6 position-absolute bottom-0 start-50 m-3 translate-middle-x" id="create-account-btn">Create Account</button>
@@ -71,8 +71,8 @@
                 onclick="closeMenu();">X</button>
         </div>
 
-        <div class="container bg-light p-0 account-transactions-menu menu d-none position-relative">
-            <div class="container-fluid transactions-bg d-flex justify-content-center align-items-center position-relative">
+        <div class="container bg-light p-0 account-transactions-menu menu d-none position-relative rounded">
+            <div class="container-fluid transactions-bg d-flex justify-content-center align-items-center position-relative rounded-top">
 
             </div>
 
@@ -92,11 +92,13 @@
                 onclick="closeMenu();">X</button>
         </div>
 
-        <div class="container bg-light edit-menu menu d-none position-relative" style="min-height: 40vh;">
-            <h3 id="current-name">Current name</h3>
-            <label for="new-name">Enter New Name</label>
-            <input id="new-name" type="text">
-            <button class="btn btn-danger" id="save-changes-button">Save Changes</button>
+        <div class="container bg-light col-lg-5 col-md-6 edit-menu menu d-none position-relative rounded" style="min-height: 40vh;">
+            <h3 class="text-center fw-normal p-3 mt-1">Current name: <span id="current-name" class="fs-4 fw-medium"></span></h3>
+            <div class="col-lg-4 col-md-6 col-sm-8 mx-auto d-flex flex-column justify-content-center">
+                <label for="new-name" class="fs-5 text fw-normal px-2">Enter New Name</label>
+                <input id="new-name" class="custom-input" type="text">
+            </div>
+            <button class="btn btn-danger mt-4 col-lg-4 col-sm-6 position-absolute bottom-0 start-50 m-3 translate-middle-x" id="save-changes-button">Save Changes</button>
             <button class="btn btn-danger p-1 position-absolute top-0 start-100 translate-middle" style="width:40px;"
                 onclick="closeMenu()">X</button>
         </div>

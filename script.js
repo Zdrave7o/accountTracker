@@ -294,6 +294,9 @@ const searchAcc = () => {
 
 function edit(i){
     openMenu("edit-menu");
+    const clearInputArea = () => document.getElementById("new-name").value = "";
+
+    clearInputArea();
 
     const submitChangeBtn = document.getElementById("save-changes-button");
     const currentNameDisplay = document.getElementById("current-name");
