@@ -45,7 +45,7 @@
 
     <div class="container-fluid position-absolute top-0 p-1 rounded d-none align-items-center justify-content-center z-2"
         id="menu-background" style="height:100vh; background-color: hsla(0, 0%, 0%, 0.347);">
-        <div class="container col-lg-5 col-md-6 bg-light create-account-menu menu d-none position-relative" style="min-height: 60vh;">
+        <div class="container p-3 col-lg-5 col-md-6 bg-light create-account-menu menu d-none position-relative" style="min-height: 60vh;">
             <div class="row py-3 mt-2">
                 <h3 class="text-center">Create New Account</h3>
             </div>
@@ -53,13 +53,13 @@
                 <label for="names" class="fs-4 text fw-medium px-2">Names:</label>
                 <input id="names" class="acc-creation-input" type="text">
             </div>
-            <div class="col-10 mx-auto d-flex flex-column justify-content-center">
+            <div class="col-10 mx-auto d-flex flex-column justify-content-center position-relative">
                 <label for="owedMoney" class="fs-4 text fw-medium px-2 mt-3">Money owed: </label>
                 <input id="owedMoney" class="acc-creation-input" type="number">
-                <button class="btn btn-danger mt-4" id="create-account-btn">Create Account</button>
             </div>
 
-            <button class="btn btn-danger p-1 position-absolute top-0 start-100 translate-middle" style="width:40px;"
+            <button class="btn btn-danger mt-4 col-lg-4 col-sm-6 position-absolute bottom-0 start-50 m-3 translate-middle-x" id="create-account-btn">Create Account</button>
+            <button class="btn btn-danger p-1 position-absolute top-0 start-100 translate-middle mb-3" style="width:40px;"
                 onclick="closeMenu();">X</button>
         </div>
 
@@ -71,8 +71,7 @@
                 onclick="closeMenu();">X</button>
         </div>
 
-        <div class="container bg-light p-0 account-transactions-menu menu d-none position-relative"
-            style="min-height: 50vh;">
+        <div class="container bg-light p-0 account-transactions-menu menu d-none position-relative">
             <div class="container-fluid transactions-bg d-flex justify-content-center align-items-center position-relative">
 
             </div>
