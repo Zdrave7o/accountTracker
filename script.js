@@ -1,6 +1,6 @@
 const usersDisplay = document.querySelector(".usersDisplay");
 const createAccountBtn = document.querySelector("#create-account-btn");
-const openAccCreationBtn = document.querySelector("#open-acc-creatio-menu-btn");
+const openAccCreationMenuBtn = document.querySelector("#open-acc-creatio-menu-btn");
 const searchInput=document.getElementById("search-input");
 
 const menuBackground = document.getElementById("menu-background");
@@ -17,10 +17,11 @@ window.addEventListener("DOMContentLoaded", ()=>{
     displayUsers(accounts);
 })
 
-openAccCreationBtn.addEventListener("click", () => {
+//event listener for account creation menu
+openAccCreationMenuBtn.addEventListener("click", () => {
     openMenu("create-account-menu");
 });
-
+//event listener for account creation form submition
 createAccountBtn.addEventListener("click", () => {
     let names = document.getElementById("names").value;
     let balance = Number(document.getElementById("owedMoney").value);
@@ -31,6 +32,7 @@ createAccountBtn.addEventListener("click", () => {
     closeMenu();
 });
 
+//displaying the accounts
 function displayUsers(accountsArr){
     usersDisplay.innerHTML = '';
     let index = 0;
@@ -52,10 +54,11 @@ function displayUsers(accountsArr){
         index++;
     });
 
+    //activating the event listeners for each account's buttons
     activateButtonAccEventListeners();
 }
 
-
+//function to create new account
 function createAccount(userName, owedMoney){
     if(!userName.includes(" ")){
         window.alert("You should enter 2 names, First and Last")
@@ -75,12 +78,14 @@ function createAccount(userName, owedMoney){
     displayUsers(accounts);
 }
 
+//function to delete account
 function deleteAccount(i){
     accounts.splice(i, 1);
     saveAccounts();
     displayUsers(accounts);
 }
 
+//activating the event listeners for each account's buttons
 function activateButtonAccEventListeners(){
     const addButtons = document.querySelectorAll(".add-btn");
     const removeButtons = document.querySelectorAll(".remove-btn");
@@ -148,6 +153,8 @@ createAccountBtn.addEventListener("click", () => {
     displayUsers(accounts);
 })
 
+
+//function for opening every individual menu
 function openMenu(menuClassName){
     menuBackground.classList.remove("d-none");
     menuBackground.classList.add("d-flex");
@@ -165,6 +172,7 @@ function openMenu(menuClassName){
     targetMenu.classList.add("d-block");
 }
 
+//function for closing the menu
 function closeMenu(){
     const allMenus = document.querySelectorAll('.menu');
 
@@ -186,6 +194,7 @@ class Account{
     }
 }
 
+//updating an account's owed money status
 function updateOwedMoney(action, i){
     const value = Number(document.getElementById("value").value);
     const currentAcc = accounts[i];
@@ -212,6 +221,7 @@ function updateOwedMoney(action, i){
     closeMenu();
 }
 
+//viewing each account's transactions
 function viewTransactions(userNameDisplay, transactionsDisplay, i){
     const currentAcc = accounts[i];
     const currentArr = currentAcc.transactions;
@@ -243,6 +253,7 @@ function viewTransactions(userNameDisplay, transactionsDisplay, i){
 
 }
 
+//removing transactions in case of wrong transaction entered
 function removeTransaction(currentAccIndex, transactionIndex){
     const balance = accounts[currentAccIndex].transactions[transactionIndex];
     accounts[currentAccIndex].owedMoney += -balance;
@@ -257,6 +268,7 @@ function removeTransaction(currentAccIndex, transactionIndex){
     
 }
 
+//search for particular account name
 const searchAcc = () => {
     const query = searchInput.value;
 
@@ -292,6 +304,8 @@ const searchAcc = () => {
     }
 }
 
+
+//edit an account's name
 function edit(i){
     openMenu("edit-menu");
     const clearInputArea = () => document.getElementById("new-name").value = "";
@@ -321,6 +335,7 @@ function edit(i){
 
 }
 
+//saving accounts to local storage
 function saveAccounts(){
     const data = accounts.map(acc => ({
         name: acc.name,
@@ -330,6 +345,7 @@ function saveAccounts(){
     localStorage.setItem('accounts', JSON.stringify(data));
 }
 
+//loading accounts from local storage
 function loadAccounts(){
     const raw = localStorage.getItem('accounts');
     if(!raw) return false;
