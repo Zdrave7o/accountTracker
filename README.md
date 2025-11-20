@@ -43,3 +43,6 @@ accountTracker/
 - Add user authentication
 - Export transaction reports
 - Date tracking for transactions
+
+## Author/Developer
+- Zdravko Georgiev
